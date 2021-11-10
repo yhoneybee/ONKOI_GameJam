@@ -5,10 +5,21 @@ using UnityEngine;
 public class Player : BaseObject
 {
     public BaseSkill skill;
+    public List<BaseAbility> abilities;
 
-    int MultiKey = 0;
-    float FirstDir = 0;
-    float Dir;
+    public float LostDir
+    {
+        get { return lostDir; }
+        set
+        {
+            if (value != 0) lostDir = value;
+        }
+    }
+
+    private int MultiKey = 0;
+    private float FirstDir = 0;
+    private float Dir;
+    private float lostDir;
 
     public override void Die()
     {
@@ -19,8 +30,13 @@ public class Player : BaseObject
     public override void Move()
     {
         Dir = GetAxisRaw(KeyCode.LeftArrow, KeyCode.RightArrow);
+        LostDir = Dir;
         if (Dir != 0) sr.flipX = Dir == -1;
         transform.Translate(Vector2.right * Dir * stat.MS * Time.deltaTime);
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            rb2d.AddForce(Vector2.up * stat.MS);
+        }
     }
 
     public void CheckInputKey()
@@ -34,14 +50,15 @@ public class Player : BaseObject
         {
             if (skill)
             {
-                if (skill) // TODO : 여기에서 쿨타임 확인하기
-                {
-                    print($"{skill.Name} skill has cooldown({skill.coolDown})");
-                }
-                else
+                if (skill.IsReady) // TODO : 여기에서 쿨타임 확인하기
                 {
                     print($"{skill.Name} skill was trigger!");
                     skill.Excute();
+                    skill.IsReady = false;
+                }
+                else
+                {
+                    print($"{skill.Name} skill has cooldown({skill.coolDown})");
                 }
             }
             else print("you not have any skill...");
@@ -49,14 +66,21 @@ public class Player : BaseObject
         if (Input.GetKeyDown(KeyCode.D))
         {
             print("dash");
-            transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * Dir * 2, stat.MS);
+            transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * LostDir * 2, stat.MS);
         }
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        skill.curCoolDown = 0;
     }
 
     protected override void Update()
     {
         base.Update();
         CheckInputKey();
+        skill.Update();
     }
 
     public float GetAxisRaw(KeyCode left, KeyCode right)

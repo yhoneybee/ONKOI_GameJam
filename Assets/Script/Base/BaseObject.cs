@@ -8,13 +8,45 @@ public struct Stat
     public float HP;
     public float maxHP;
     public float AD;
-    public float AR;
+    public float AS;
     public float CP;
+    public float CD;
     public float MS;
+    public float JP;
     public int lv;
+
+    public static Stat operator +(Stat stat1, Stat stat2)
+    {
+        return new Stat { AD = stat1.AD + stat2.AD, AS = stat1.AS + stat2.AS, CP = stat1.CP + stat2.CP, CD = stat1.CD + stat2.CD, maxHP = stat1.maxHP + stat2.maxHP, MS = stat1.MS + stat2.MS, JP = stat1.JP + stat2.JP };
+    }
+    public static Stat operator -(Stat stat1, Stat stat2)
+    {
+        return new Stat { AD = stat1.AD - stat2.AD, AS = stat1.AS - stat2.AS, CP = stat1.CP - stat2.CP, CD = stat1.CD - stat2.CD, maxHP = stat1.maxHP - stat2.maxHP, MS = stat1.MS - stat2.MS, JP = stat1.JP - stat2.JP };
+    }
+}
+
+public enum eStat
+{
+    HP,
+    AD,
+    AS,
+    CP,
+    CD,
+    MS,
+    JP,
+}
+
+public enum eOperate
+{
+    ADD,
+    SUB,
+    MUL,
+    DIV,
 }
 
 [RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(BoxCollider2D))]
 public abstract class BaseObject : MonoBehaviour
 {
     public Stat stat;
@@ -34,13 +66,16 @@ public abstract class BaseObject : MonoBehaviour
     }
 
     protected SpriteRenderer sr;
+    protected Animator animator;
+    protected Rigidbody2D rb2d;
+    protected BoxCollider2D boxCol2d;
 
-    Animator animator;
-
-    protected void Start()
+    protected virtual void Start()
     {
         animator = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
+        rb2d = GetComponent<Rigidbody2D>();
+        boxCol2d = GetComponent<BoxCollider2D>();
         HP = stat.maxHP;
     }
 
