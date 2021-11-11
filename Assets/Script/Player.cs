@@ -44,7 +44,6 @@ public class Player : BaseObject
         if (Input.GetKeyDown(KeyCode.A))
         {
             print("attack");
-            // TODO : 투사체 발사!
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -79,6 +78,7 @@ public class Player : BaseObject
     protected override void Update()
     {
         base.Update();
+        Move();
         CheckInputKey();
         skill.Update();
     }

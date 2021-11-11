@@ -41,7 +41,6 @@ public enum eOperate
     ADD,
     SUB,
     MUL,
-    DIV,
 }
 
 [RequireComponent(typeof(Animator))]
@@ -81,7 +80,6 @@ public abstract class BaseObject : MonoBehaviour
 
     protected virtual void Update()
     {
-        Move();
         if (HP < 0)
         {
             HP = 30;

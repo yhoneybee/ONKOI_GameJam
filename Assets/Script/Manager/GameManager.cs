@@ -6,25 +6,27 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public List<SaveData> SaveDatas
-    {
-        get 
-        {
-            if (saveDatas.Count > 10)
-            {
-                saveDatas.RemoveAt(saveDatas.Count - 1);
-                SaveManager.Save(saveDatas, "SaveData");
-            }
-            return saveDatas;
-        }
-        set { saveDatas = value; }
-    }
-
-    private List<SaveData> saveDatas;
+    public List<SaveData> GameLogData;
+    public BaseObject player;
 
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        LoadAndSaveLogData();
+    }
+
+    private void LoadAndSaveLogData()
+    {
+        SaveManager.Load(ref GameLogData, "GameLogDatas");
+        if (GameLogData.Count > 10)
+        {
+            GameLogData.RemoveRange(10, GameLogData.Count - 10);
+            SaveManager.Save(GameLogData, "GameLogDatas");
+        }
     }
 
     private void Update()
