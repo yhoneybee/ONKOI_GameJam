@@ -49,6 +49,7 @@ public enum eOperate
 public abstract class BaseObject : MonoBehaviour
 {
     public Stat stat;
+    public string Name;
     public float HP
     {
         get { return stat.HP; }
@@ -76,6 +77,7 @@ public abstract class BaseObject : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         boxCol2d = GetComponent<BoxCollider2D>();
         HP = stat.maxHP;
+        rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 
     protected virtual void Update()
@@ -92,5 +94,6 @@ public abstract class BaseObject : MonoBehaviour
     public virtual void Die()
     {
         // TODO : Animator의 Die 에니메이션 플레이
+        // animator.GetBool(""); <- 이것으로 에니메이션 끝날때까지 while문으로 돌기
     }
 }

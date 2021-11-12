@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class Player : BaseObject
 {
     public BaseSkill skill;
     public List<BaseAbility> abilities;
 
-    public float LostDir
+    public float LastDir
     {
         get { return lostDir; }
         set
@@ -30,13 +32,11 @@ public class Player : BaseObject
     public override void Move()
     {
         Dir = GetAxisRaw(KeyCode.LeftArrow, KeyCode.RightArrow);
-        LostDir = Dir;
+        LastDir = Dir;
         if (Dir != 0) sr.flipX = Dir == -1;
         transform.Translate(Vector2.right * Dir * stat.MS * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            rb2d.AddForce(Vector2.up * stat.MS);
-        }
+        var hit = Physics2D.Raycast(transform.position, Vector2.down, 1, LayerMask.GetMask("Platform"));
+        if (hit.transform && Input.GetKeyDown(KeyCode.UpArrow)) rb2d.AddForce(Vector2.up * stat.JP);
     }
 
     public void CheckInputKey()
@@ -44,6 +44,8 @@ public class Player : BaseObject
         if (Input.GetKeyDown(KeyCode.A))
         {
             print("attack");
+            var hits = Physics2D.RaycastAll(transform.position, Vector2.right * LastDir, 5, LayerMask.GetMask("Enemy"));
+            hits.ToList().ForEach(hit => { if (hit.transform) hit.transform.GetComponent<BaseEnemy>().HP -= stat.AD; });
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
@@ -65,7 +67,7 @@ public class Player : BaseObject
         if (Input.GetKeyDown(KeyCode.D))
         {
             print("dash");
-            transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * LostDir * 2, stat.MS);
+            transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * LastDir * 2, stat.MS);
         }
     }
 

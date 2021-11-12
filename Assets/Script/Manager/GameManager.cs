@@ -8,6 +8,19 @@ public class GameManager : MonoBehaviour
 
     public List<SaveData> GameLogData;
     public BaseObject player;
+    public House House;
+    public int Gold
+    {
+        get { return gold; }
+        set 
+        { 
+            gold = value;
+            if (!UIManager.Instance.txtGold) Debug.LogError($"{UIManager.Instance.name}의 txtGold변수가 비어있습니다");
+            else UIManager.Instance.txtGold.text = $"{gold:#,0} Gold";
+        }
+    }
+
+    private int gold;
 
     private void Awake()
     {
@@ -16,6 +29,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        Gold = 0;
         LoadAndSaveLogData();
     }
 
