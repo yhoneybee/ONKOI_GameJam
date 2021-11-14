@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -93,7 +93,7 @@ public abstract class BaseObject : MonoBehaviour
 
     public virtual void Die()
     {
-        // TODO : Animator¿« Die ø°¥œ∏ﬁ¿Ãº« «√∑π¿Ã
-        // animator.GetBool(""); <- ¿Ã∞Õ¿∏∑Œ ø°¥œ∏ﬁ¿Ãº« ≥°≥Ø∂ß±Ó¡ˆ whileπÆ¿∏∑Œ µπ±‚
+        // TODO : AnimatorÏùò Die ÏóêÎãàÎ©îÏù¥ÏÖò ÌîåÎ†àÏù¥
+        // animator.GetBool(""); <- Ïù¥Í≤ÉÏúºÎ°ú ÏóêÎãàÎ©îÏù¥ÏÖò ÎÅùÎÇ†ÎïåÍπåÏßÄ whileÎ¨∏ÏúºÎ°ú ÎèåÍ∏∞
     }
 }

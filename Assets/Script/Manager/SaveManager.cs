@@ -46,11 +46,6 @@ public class SaveManager : MonoBehaviour
         print($"SAVE TO : {path}");
     }
 
-    /// <summary>
-    /// �׳� List�� ���� �״�� �ҷ��ö� ����ϴ� �Լ�
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="load_target"></param>
     public static void Load<T>(ref List<T> load_target, string file)
     {
         string path = Instance.GetFilePath(file);
@@ -66,12 +61,6 @@ public class SaveManager : MonoBehaviour
         print($"LOAD FROM : {path}");
     }
 
-    /// <summary>
-    /// List�ȿ� ����� ������ ��� �ҷ����� List�� return�Ͽ� ���� ��������� �ϴ� �Լ�
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="file"></param>
-    /// <returns></returns>
     public static IEnumerable<T> Load<T>(string file = "")
     {
         string path = Instance.GetFilePath(file);

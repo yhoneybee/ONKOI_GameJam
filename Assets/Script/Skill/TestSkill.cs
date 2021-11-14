@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,6 @@ public class TestSkill : BaseSkill
 {
     public override void Excute()
     {
-        // TODO : ½ºÅ³ ¸¸µé±â
+        // TODO : ìŠ¤í‚¬ ë§Œë“¤ê¸°
     }
 }

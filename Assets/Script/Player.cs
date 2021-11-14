@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -26,7 +26,7 @@ public class Player : BaseObject
     public override void Die()
     {
         base.Die();
-        // TODO : °ÔÀÓ Á¾·á
+        // TODO : ê²Œì„ ì¢…ë£Œ
     }
 
     public override void Move()
@@ -51,7 +51,7 @@ public class Player : BaseObject
         {
             if (skill)
             {
-                if (skill.IsReady) // TODO : ¿©±â¿¡¼­ ÄğÅ¸ÀÓ È®ÀÎÇÏ±â
+                if (skill.IsReady) // TODO : ì—¬ê¸°ì—ì„œ ì¿¨íƒ€ì„ í™•ì¸í•˜ê¸°
                 {
                     print($"{skill.Name} skill was trigger!");
                     skill.Excute();

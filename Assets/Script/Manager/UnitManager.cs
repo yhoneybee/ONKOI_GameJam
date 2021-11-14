@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -26,7 +26,7 @@ public class UnitManager : MonoBehaviour
         BaseEnemy obj;
         if (originList.Count == 0)
         {
-            Debug.LogError($"{name}¾È¿¡ ÀÖ´Â UnitManagerÀÇ originList¿¡ ºñ¾îÀÖ½À´Ï´Ù");
+            Debug.LogError($"{name}ì•ˆì— ìˆëŠ” UnitManagerì˜ originListì— ë¹„ì–´ìˆìŠµë‹ˆë‹¤");
             return null;
         }
         else

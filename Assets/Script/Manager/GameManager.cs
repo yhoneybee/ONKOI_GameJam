@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
         set 
         { 
             gold = value;
-            if (!UIManager.Instance.txtGold) Debug.LogError($"{UIManager.Instance.name}ÀÇ txtGoldº¯¼ö°¡ ºñ¾îÀÖ½À´Ï´Ù");
+            if (!UIManager.Instance.txtGold) Debug.LogError($"{UIManager.Instance.name}ì˜ txtGoldë³€ìˆ˜ê°€ ë¹„ì–´ìˆìŠµë‹ˆë‹¤");
             else UIManager.Instance.txtGold.text = $"{gold:#,0} Gold";
         }
     }

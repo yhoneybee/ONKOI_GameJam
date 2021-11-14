@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +7,6 @@ public class SaveData
 {
     public int killCount;
     public int clearRound;
-    // TODO : ´É·ÂÀ» Ãß°¡ÇØ¾ßÇÔ
+    // TODO : ëŠ¥ë ¥ì„ ì¶”ê°€í•´ì•¼í•¨
     public List<BaseAbility> Abilities;
 }

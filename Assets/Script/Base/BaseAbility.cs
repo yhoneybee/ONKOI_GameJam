@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -15,20 +15,20 @@ public struct AbilityOperate
     {
         string stat = statType switch
         {
-            eStat.HP => "Ã¼·ÂÀÌ",
-            eStat.AD => "°ø°İ·ÂÀÌ",
-            eStat.AS => "°ø°İ ¼Óµµ°¡",
-            eStat.CP => "Ä¡¸íÅ¸ È®·üÀÌ",
-            eStat.CD => "Ä¡¸íÅ¸ ÇÇÇØ°¡",
-            eStat.MS => "ÀÌµ¿ ¼Óµµ°¡",
-            eStat.JP => "Á¡ÇÁ·ÂÀÌ",
+            eStat.HP => "ì²´ë ¥ì´",
+            eStat.AD => "ê³µê²©ë ¥ì´",
+            eStat.AS => "ê³µê²© ì†ë„ê°€",
+            eStat.CP => "ì¹˜ëª…íƒ€ í™•ë¥ ì´",
+            eStat.CD => "ì¹˜ëª…íƒ€ í”¼í•´ê°€",
+            eStat.MS => "ì´ë™ ì†ë„ê°€",
+            eStat.JP => "ì í”„ë ¥ì´",
             _ => "",
         };
         string operate = operateType switch
         {
-            eOperate.ADD => "¸¸Å­ ´Ã¾î³³´Ï´Ù",
-            eOperate.SUB => "¸¸Å­ ÁÙ¾îµì´Ï´Ù",
-            eOperate.MUL => "¹è°¡ µË´Ï´Ù",
+            eOperate.ADD => "ë§Œí¼ ëŠ˜ì–´ë‚©ë‹ˆë‹¤",
+            eOperate.SUB => "ë§Œí¼ ì¤„ì–´ë“­ë‹ˆë‹¤",
+            eOperate.MUL => "ë°°ê°€ ë©ë‹ˆë‹¤",
             _ => "",
         };
         return $"{stat} {value}{operate}";
