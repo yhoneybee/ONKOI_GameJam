@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -43,6 +43,14 @@ public class BaseAbility : ScriptableObject
     public int level;
     public Stat stat;
 
+    public override string ToString()
+    {
+        string result = "";
+        foreach (var operate in operateList)
+            result += operate.ToString() + "\n";
+        return result;
+    }
+
     public List<eStat> SortBigStat()
     {
         Dictionary<float, int> dstat = new Dictionary<float, int>()
@@ -80,6 +88,8 @@ public class BaseAbility : ScriptableObject
     public void Equipped(BaseObject owner)
     {
         Owner = owner;
+        GameManager.Instance.thisGameData.RemoveAbility(this);
+        GameManager.Instance.thisGameData.AddAbility(this);
         Unequipped();
         stat = new Stat();
         foreach (var ol in operateList)

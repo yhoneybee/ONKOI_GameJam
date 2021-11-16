@@ -20,7 +20,6 @@ public class BaseEnemy : BaseObject
             if (value != target && !Aggro) // 새로운 값을 할당할때, 어드로 상태가 아닐 때
             {
                 target = value;
-                CancelInvoke(nameof(Attack));
                 Aggro = true; // 타겟이 할당되었으므로 5초간 어그로
             }
         }
@@ -53,7 +52,7 @@ public class BaseEnemy : BaseObject
     [SerializeField] private BaseObject target;
     private eFSM fsm;
     [SerializeField] private bool aggro;
-    private bool isAttack;
+    [SerializeField] private bool isAttack;
     private float disPlayer;
     private float disHouse;
 
@@ -124,9 +123,8 @@ public class BaseEnemy : BaseObject
                 break;
             case eFSM.TargetOnAttackRange:
 
-                print("ATTACK");
                 isAttack = true;
-                InvokeRepeating(nameof(Attack), 0, 1 / stat.AS);
+                Invoke(nameof(Attack), 1 / stat.AS);
                 FSM = eFSM.TrackingTarget;
 
                 break;
@@ -143,8 +141,6 @@ public class BaseEnemy : BaseObject
                 {
                     var hits = Physics2D.RaycastAll(transform.position + Vector3.right * recognitionRange, Vector2.left, recognitionRange * 2, LayerMask.GetMask("Player") | LayerMask.GetMask("House"));
 
-                    print($"hits : {hits.Length}");
-
                     if (!Aggro) // 어그로가 아닐 때
                     {
                         if (hits.Length > 1)
@@ -158,11 +154,16 @@ public class BaseEnemy : BaseObject
 
                         if (hits.Length <= 0) // 감지 되지 않음
                         {
+                            CancelInvoke(nameof(Attack));
+                            isAttack = false;
                             FSM = eFSM.ChangeNearTarget;
                         }
                         else
                         {
-                            FSM = eFSM.TargetOnAttackRange;
+                            if (!isAttack)
+                            {
+                                FSM = eFSM.TargetOnAttackRange;
+                            }
                         }
                     }
                 }

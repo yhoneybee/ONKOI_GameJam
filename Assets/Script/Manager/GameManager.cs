@@ -5,8 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public SaveData thisGameData;
 
-    public List<SaveData> gameLogData;
+    public List<SaveData> gameLogData = new List<SaveData>();
     public BaseObject player;
     public House house;
     public int Gold
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Gold = 0;
+        GameStart();
         LoadAndSaveLogData();
     }
 
@@ -45,5 +47,11 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+    }
+
+    public void GameStart()
+    {
+        thisGameData = new SaveData();
+        gameLogData.Add(thisGameData);
     }
 }

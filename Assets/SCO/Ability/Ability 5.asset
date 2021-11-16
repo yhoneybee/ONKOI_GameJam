@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498bfecdd326e764b9984bc74a648270, type: 3}
   m_Name: Ability 5
   m_EditorClassIdentifier: 
-  operateList: []
+  Owner: {fileID: 0}
+  operateList:
+  - operateType: 0
+    statType: 4
+    value: 55
+  - operateType: 0
+    statType: 3
+    value: 33
   level: 0
   stat:
     HP: 0
@@ -22,4 +29,5 @@ MonoBehaviour:
     CP: 0
     CD: 0
     MS: 0
+    JP: 0
     lv: 0
