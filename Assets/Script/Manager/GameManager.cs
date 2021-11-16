@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public List<SaveData> GameLogData;
+    public List<SaveData> gameLogData;
     public BaseObject player;
-    public House House;
+    public House house;
     public int Gold
     {
         get { return gold; }
@@ -35,11 +35,11 @@ public class GameManager : MonoBehaviour
 
     private void LoadAndSaveLogData()
     {
-        SaveManager.Load(ref GameLogData, "GameLogDatas");
-        if (GameLogData.Count > 10)
+        SaveManager.Load(ref gameLogData, "GameLogDatas");
+        if (gameLogData.Count > 10)
         {
-            GameLogData.RemoveRange(10, GameLogData.Count - 10);
-            SaveManager.Save(GameLogData, "GameLogDatas");
+            gameLogData.RemoveRange(10, gameLogData.Count - 10);
+            SaveManager.Save(gameLogData, "GameLogDatas");
         }
     }
 

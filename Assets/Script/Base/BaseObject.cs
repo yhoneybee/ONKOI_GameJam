@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -82,6 +82,7 @@ public abstract class BaseObject : MonoBehaviour
 
     protected virtual void Update()
     {
+        Move();
         if (HP < 0)
         {
             HP = 30;

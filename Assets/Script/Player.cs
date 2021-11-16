@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -80,7 +80,6 @@ public class Player : BaseObject
     protected override void Update()
     {
         base.Update();
-        Move();
         CheckInputKey();
         skill.Update();
     }
