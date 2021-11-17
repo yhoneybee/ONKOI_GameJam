@@ -90,7 +90,6 @@ public class BaseAbility : ScriptableObject
         Owner = owner;
         GameManager.Instance.thisGameData.RemoveAbility(this);
         GameManager.Instance.thisGameData.AddAbility(this);
-        Unequipped();
         stat = new Stat();
         foreach (var ol in operateList)
         {

@@ -39,5 +39,9 @@ public class AbilityChoiceLinker : MonoBehaviour
     {
         ability.Equipped(GameManager.Instance.player);
         UIManager.Instance.ActiveAbilityChoice(false);
+        if (RoundManager.Instance.RoundCount % 3 == 0)
+        {
+            UIManager.Instance.HouseEnter();
+        }
     }
 }

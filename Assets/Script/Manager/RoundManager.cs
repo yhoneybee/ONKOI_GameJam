@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ public class RoundManager : MonoBehaviour
         { 
             roundCount = value;
             UIManager.Instance.txtRoundCount.text = $"Round : {roundCount}";
+            UIManager.Instance.ShowAbilityChoice();
         }
     }
 
@@ -31,6 +32,8 @@ public class RoundManager : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+            RoundCount++;
     }
 
     public void Spawn()

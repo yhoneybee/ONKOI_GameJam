@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Owner: {fileID: 0}
   operateList:
-  - operateType: 1
+  - operateType: 0
     statType: 5
-    value: 444
+    value: 77
   level: 0
   stat:
     HP: 0
@@ -25,6 +25,6 @@ MonoBehaviour:
     AS: 0
     CP: 0
     CD: 0
-    MS: 0
+    MS: 77
     JP: 0
     lv: 0
