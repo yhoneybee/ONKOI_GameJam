@@ -10,11 +10,11 @@ public class RoundManager : MonoBehaviour
     public int RoundCount
     {
         get { return roundCount; }
-        set 
-        { 
+        set
+        {
             roundCount = value;
             UIManager.Instance.txtRoundCount.text = $"Round : {roundCount}";
-            UIManager.Instance.ShowAbilityChoice();
+            UIManager.Instance.ShowAbilityChoice(roundCount % 3 == 0);
         }
     }
 

@@ -13,8 +13,8 @@ public class GameManager : MonoBehaviour
     public int Gold
     {
         get { return gold; }
-        set 
-        { 
+        set
+        {
             gold = value;
             if (!UIManager.Instance.txtGold) Debug.LogError($"{UIManager.Instance.name}의 txtGold변수가 비어있습니다");
             else UIManager.Instance.txtGold.text = $"{gold:#,0} Gold";
@@ -32,17 +32,14 @@ public class GameManager : MonoBehaviour
     {
         Gold = 0;
         GameStart();
-        LoadAndSaveLogData();
     }
 
     private void LoadAndSaveLogData()
     {
         SaveManager.Load(ref gameLogData, "GameLogDatas");
         if (gameLogData.Count > 10)
-        {
             gameLogData.RemoveRange(10, gameLogData.Count - 10);
-            SaveManager.Save(gameLogData, "GameLogDatas");
-        }
+        SaveManager.Save(gameLogData, "GameLogDatas");
     }
 
     private void Update()
@@ -52,6 +49,12 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         thisGameData = new SaveData();
+        LoadAndSaveLogData();
+    }
+
+    public void GameEnd()
+    {
         gameLogData.Add(thisGameData);
+        LoadAndSaveLogData();
     }
 }

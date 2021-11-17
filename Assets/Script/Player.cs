@@ -31,6 +31,7 @@ public class Player : BaseObject
 
     public override void Move()
     {
+        base.Move();
         Dir = GetAxisRaw(KeyCode.LeftArrow, KeyCode.RightArrow);
         LastDir = Dir;
         if (Dir != 0) sr.flipX = Dir == -1;
@@ -39,13 +40,23 @@ public class Player : BaseObject
         if (hit.transform && Input.GetKeyDown(KeyCode.UpArrow)) rb2d.AddForce(Vector2.up * stat.JP);
     }
 
+    public override void Attack()
+    {
+        base.Attack();
+        float damage = stat.AD;
+        if (UnityEngine.Random.Range(0, 101) < stat.CP)
+        {
+            damage *= stat.CD;
+        }
+        var hits = Physics2D.RaycastAll(transform.position, Vector2.right * LastDir, 5, LayerMask.GetMask("Enemy"));
+        hits.ToList().ForEach(hit => { if (hit.transform) hit.transform.GetComponent<BaseEnemy>().HP -= damage; });
+    }
+
     public void CheckInputKey()
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            print("attack");
-            var hits = Physics2D.RaycastAll(transform.position, Vector2.right * LastDir, 5, LayerMask.GetMask("Enemy"));
-            hits.ToList().ForEach(hit => { if (hit.transform) hit.transform.GetComponent<BaseEnemy>().HP -= stat.AD; });
+            Attack();
         }
         if (Input.GetKeyDown(KeyCode.S))
         {

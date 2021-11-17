@@ -58,6 +58,7 @@ public class BaseEnemy : BaseObject
 
     public override void Move()
     {
+        base.Move();
         if (Target && !isAttack) transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, stat.MS * Time.deltaTime);
     }
 
@@ -90,9 +91,10 @@ public class BaseEnemy : BaseObject
         UnitManager.Instance.ReturnObject(this);
     }
 
-    public virtual void Attack()
+    public override void Attack()
     {
         // TODO : 
+        base.Attack();
         isAttack = false;
     }
 

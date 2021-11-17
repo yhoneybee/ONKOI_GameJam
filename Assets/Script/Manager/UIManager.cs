@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using System.Linq;
+using System;
 
 public class UIManager : MonoBehaviour
 {
@@ -15,7 +17,6 @@ public class UIManager : MonoBehaviour
     public GoldDropLinker goldDropPrefab;
     public List<AbilityChoiceLinker> linkAbilityChoice;
     public TextMeshProUGUI txtChoice;
-    public Image imgFade;
 
     private void Awake()
     {
@@ -34,16 +35,6 @@ public class UIManager : MonoBehaviour
         go.txtGoldCount.text = $"+{be.gold:#,0}";
     }
 
-    public void HouseEnter()
-    {
-        imgFade.DOFade(1, 1);
-    }
-
-    public void HouseExit()
-    {
-        imgFade.DOFade(0, 1);
-    }
-
     public void ActiveAbilityChoice(bool active)
     {
         int posX = -600;
@@ -59,14 +50,13 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void ShowAbilityChoice()
+    public void ShowAbilityChoice(bool epic)
     {
         ActiveAbilityChoice(true);
-        var abilities = AbilityManager.Instance.ChoiceAbility();
-        for (int i = 0; i < 3; i++)
-        {
-            linkAbilityChoice[i].Ability = abilities[i];
-        }
+        var abilities = AbilityManager.Instance.ChoiceAbility(epic);
+
+        for (int i = 0; i < 3; i++) linkAbilityChoice[i].Ability = abilities[i];
+
         DOTween.Sequence()
             .Insert(0, linkAbilityChoice[0].GetComponent<RectTransform>().DOAnchorPosY(-150, 1))
             .Insert(0, linkAbilityChoice[1].GetComponent<RectTransform>().DOAnchorPosY(-150, 1))

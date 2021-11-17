@@ -38,10 +38,10 @@ public struct AbilityOperate
 [CreateAssetMenu(menuName = "SCO/Base/Ability", fileName = "Ability")]
 public class BaseAbility : ScriptableObject
 {
-    public BaseObject Owner;
     public List<AbilityOperate> operateList;
     public int level;
     public Stat stat;
+    public bool epicRank;
 
     public override string ToString()
     {
@@ -85,36 +85,36 @@ public class BaseAbility : ScriptableObject
         return targetValue - returnValue;
     }
 
-    public void Equipped(BaseObject owner)
+    public void Equipped()
     {
-        Owner = owner;
         GameManager.Instance.thisGameData.RemoveAbility(this);
         GameManager.Instance.thisGameData.AddAbility(this);
         stat = new Stat();
+        var player = GameManager.Instance.player;
         foreach (var ol in operateList)
         {
             switch (ol.statType)
             {
                 case eStat.HP:
-                    stat.HP += Operate(ol.operateType, ref Owner.stat.HP, ol.value);
+                    stat.HP += Operate(ol.operateType, ref player.stat.HP, ol.value);
                     break;
                 case eStat.AD:
-                    stat.AD += Operate(ol.operateType, ref Owner.stat.AD, ol.value);
+                    stat.AD += Operate(ol.operateType, ref player.stat.AD, ol.value);
                     break;
                 case eStat.AS:
-                    stat.AS += Operate(ol.operateType, ref Owner.stat.AS, ol.value);
+                    stat.AS += Operate(ol.operateType, ref player.stat.AS, ol.value);
                     break;
                 case eStat.CP:
-                    stat.CP += Operate(ol.operateType, ref Owner.stat.CP, ol.value);
+                    stat.CP += Operate(ol.operateType, ref player.stat.CP, ol.value);
                     break;
                 case eStat.CD:
-                    stat.CD += Operate(ol.operateType, ref Owner.stat.CD, ol.value);
+                    stat.CD += Operate(ol.operateType, ref player.stat.CD, ol.value);
                     break;
                 case eStat.MS:
-                    stat.MS += Operate(ol.operateType, ref Owner.stat.MS, ol.value);
+                    stat.MS += Operate(ol.operateType, ref player.stat.MS, ol.value);
                     break;
                 case eStat.JP:
-                    stat.JP += Operate(ol.operateType, ref Owner.stat.JP, ol.value);
+                    stat.JP += Operate(ol.operateType, ref player.stat.JP, ol.value);
                     break;
             }
         }
@@ -122,6 +122,6 @@ public class BaseAbility : ScriptableObject
 
     public void Unequipped()
     {
-        Owner.stat -= stat;
+        GameManager.Instance.player.stat -= stat;
     }
 }

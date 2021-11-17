@@ -83,18 +83,21 @@ public abstract class BaseObject : MonoBehaviour
     protected virtual void Update()
     {
         Move();
-        if (HP < 0)
-        {
-            HP = 30;
-            Die();
-        }
     }
 
-    public abstract void Move();
+    public virtual void Move()
+    {
+
+    }
 
     public virtual void Die()
     {
         // TODO : Animator의 Die 에니메이션 플레이
         // animator.GetBool(""); <- 이것으로 에니메이션 끝날때까지 while문으로 돌기
+    }
+
+    public virtual void Attack()
+    {
+
     }
 }
