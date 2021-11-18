@@ -58,6 +58,7 @@ public class BaseEnemy : BaseObject
 
     public override void Move()
     {
+        base.Move();
         if (Target && !isAttack) transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, stat.MS * Time.deltaTime);
     }
 
@@ -85,15 +86,17 @@ public class BaseEnemy : BaseObject
     public override void Die()
     {
         base.Die();
+        GameManager.Instance.thisGameData.killCount++;
         GameManager.Instance.Gold += gold;
         UIManager.Instance.GoldDrop(this);
         UnitManager.Instance.ReturnObject(this);
     }
 
-    public virtual void Attack()
+    public override void Attack()
     {
-        // TODO : 
+        base.Attack();
         isAttack = false;
+        Target.HP -= stat.AD;
     }
 
     void AggroClear()

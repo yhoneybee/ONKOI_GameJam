@@ -7,4 +7,15 @@ public class House : BaseObject
     public override void Move()
     {
     }
+
+    public override void Die()
+    {
+        base.Die();
+        // TODO : 게임 종료
+        GameManager.Instance.GameEnd();
+    }
+
+    public override void Attack()
+    {
+    }
 }

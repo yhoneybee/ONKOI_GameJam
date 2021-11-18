@@ -9,9 +9,9 @@ public class AbilityChoiceLinker : MonoBehaviour
     public BaseAbility Ability
     {
         get { return ability; }
-        set 
-        { 
-            ability = value; 
+        set
+        {
+            ability = value;
             if (ability)
             {
                 info.text = ability.ToString();
@@ -37,11 +37,8 @@ public class AbilityChoiceLinker : MonoBehaviour
 
     private void OnClick()
     {
-        ability.Equipped(GameManager.Instance.player);
+        ability.Equipped();
         UIManager.Instance.ActiveAbilityChoice(false);
-        if (RoundManager.Instance.RoundCount % 3 == 0)
-        {
-            UIManager.Instance.HouseEnter();
-        }
+        GameManager.Instance.player.HP = int.MaxValue;
     }
 }
