@@ -12,19 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 498bfecdd326e764b9984bc74a648270, type: 3}
   m_Name: Ability 3
   m_EditorClassIdentifier: 
-  Owner: {fileID: 0}
   operateList:
   - operateType: 0
-    statType: 5
-    value: 77
-  level: 0
-  stat:
-    HP: 0
-    maxHP: 0
-    AD: 0
-    AS: 0
-    CP: 0
-    CD: 0
-    MS: 77
-    JP: 0
-    lv: 0
+    statType: 1
+    levelUpAddtionValues:
+    - 5
+    - 2
+    - 3
+    - 5
+  Name: "\uCCB4\uB825 \uD68C\uBCF5"
+  level: 2
+  epicRank: 0

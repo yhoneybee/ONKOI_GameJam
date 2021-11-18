@@ -15,19 +15,36 @@ public struct Stat
     public float JP;
     public int lv;
 
+    private static float CheckZero(float value) => value < 0 ? 0 : value;
+
     public static Stat operator +(Stat stat1, Stat stat2)
     {
-        return new Stat { AD = stat1.AD + stat2.AD, AS = stat1.AS + stat2.AS, CP = stat1.CP + stat2.CP, CD = stat1.CD + stat2.CD, maxHP = stat1.maxHP + stat2.maxHP, MS = stat1.MS + stat2.MS, JP = stat1.JP + stat2.JP };
+        return new Stat { HP = CheckZero(stat1.HP + stat2.HP),
+            AD = CheckZero(stat1.AD + stat2.AD),
+            AS = CheckZero(stat1.AS + stat2.AS),
+            CP = CheckZero(stat1.CP + stat2.CP),
+            CD = CheckZero(stat1.CD + stat2.CD),
+            maxHP = CheckZero(stat1.maxHP + stat2.maxHP),
+            MS = CheckZero(stat1.MS + stat2.MS),
+            JP = CheckZero(stat1.JP + stat2.JP) };
     }
     public static Stat operator -(Stat stat1, Stat stat2)
     {
-        return new Stat { AD = stat1.AD - stat2.AD, AS = stat1.AS - stat2.AS, CP = stat1.CP - stat2.CP, CD = stat1.CD - stat2.CD, maxHP = stat1.maxHP - stat2.maxHP, MS = stat1.MS - stat2.MS, JP = stat1.JP - stat2.JP };
+        return new Stat { HP = CheckZero(stat1.HP - stat2.HP),
+            AD = CheckZero(stat1.AD - stat2.AD),
+            AS = CheckZero(stat1.AS - stat2.AS),
+            CP = CheckZero(stat1.CP - stat2.CP),
+            CD = CheckZero(stat1.CD - stat2.CD),
+            maxHP = CheckZero(stat1.maxHP - stat2.maxHP),
+            MS = CheckZero(stat1.MS - stat2.MS),
+            JP = CheckZero(stat1.JP - stat2.JP) };
     }
 }
 
 public enum eStat
 {
     HP,
+    MaxHP,
     AD,
     AS,
     CP,
@@ -40,7 +57,6 @@ public enum eOperate
 {
     ADD,
     SUB,
-    MUL,
 }
 
 [RequireComponent(typeof(Animator))]
@@ -94,10 +110,16 @@ public abstract class BaseObject : MonoBehaviour
     {
         // TODO : Animator의 Die 에니메이션 플레이
         // animator.GetBool(""); <- 이것으로 에니메이션 끝날때까지 while문으로 돌기
+        animator.SetBool("isDie", true);
     }
 
     public virtual void Attack()
     {
+        animator.SetBool("isAttack", true);
+    }
 
+    public virtual void AttackEnd()
+    {
+        animator.SetBool("isAttack", false);
     }
 }

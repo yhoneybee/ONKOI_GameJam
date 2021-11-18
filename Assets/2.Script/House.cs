@@ -13,6 +13,7 @@ public class House : BaseObject
         base.Die();
         // TODO : 게임 종료
         GameManager.Instance.GameEnd();
+        gameObject.SetActive(false);
     }
 
     public override void Attack()

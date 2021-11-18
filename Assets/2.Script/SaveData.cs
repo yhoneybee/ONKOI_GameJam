@@ -7,10 +7,20 @@ using System.Linq;
 [System.Serializable]
 public class SaveData
 {
-    public int killCount;
+    public int KillCount
+    {
+        get { return killCount; }
+        set 
+        { 
+            killCount = value;
+            UIManager.Instance.txtKillCount.text = $"{killCount} Kills";
+        }
+    }
     public int clearRound;
     // TODO : 능력을 추가해야함
     public List<BaseAbility> Abilities = new List<BaseAbility>();
+
+    private int killCount;
 
     public void AddAbility(BaseAbility ability)
     {

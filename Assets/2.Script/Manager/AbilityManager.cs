@@ -17,6 +17,10 @@ public class AbilityManager : MonoBehaviour
 
     private void Start()
     {
+        foreach (var ability in Abilities)
+        {
+            ability.level = 0;
+        }
     }
 
     public List<BaseAbility> ChoiceAbility(bool epic)

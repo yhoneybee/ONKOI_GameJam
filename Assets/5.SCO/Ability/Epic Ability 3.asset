@@ -10,9 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 498bfecdd326e764b9984bc74a648270, type: 3}
-  m_Name: Ability 8
+  m_Name: Epic Ability 3
   m_EditorClassIdentifier: 
-  operateList: []
+  operateList:
+  - operateType: 0
+    statType: 4
+    levelUpAddtionValues:
+    - 10
+    - 20
+    - 20
+    - 20
+  - operateType: 1
+    statType: 2
+    levelUpAddtionValues:
+    - 10
+    - 20
+    - 15
+    - 55
+  Name: "\uC6B4\uC218 \uC88B\uC740 \uB0A0"
   level: 0
   stat:
     HP: 0

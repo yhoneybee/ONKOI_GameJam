@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
+using System.Linq;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -23,6 +27,8 @@ public class GameManager : MonoBehaviour
 
     private int gold;
 
+    public System.Tuple<float, int, int, int, int, int, int> temp;
+
     private void Awake()
     {
         Instance = this;
@@ -36,8 +42,16 @@ public class GameManager : MonoBehaviour
 
     private void LoadAndSaveLogData()
     {
+        var loads = SaveManager.Load<(int, int)>("GameLogData");
+        if (loads != null)
+        {
+            foreach (var load in loads)
+                gameLogData.Add(new SaveData { clearRound = load.Item1, KillCount = load.Item2 });
+        }
+
         if (gameLogData.Count > 10)
             gameLogData.RemoveRange(10, gameLogData.Count - 10);
+        SaveManager.Save(gameLogData.Select(x => (x.clearRound, x.KillCount)), "GameLogData");
     }
 
     private void Update()
@@ -64,5 +78,26 @@ public class GameManager : MonoBehaviour
 
         gameLogData.Add(thisGameData);
         LoadAndSaveLogData();
+        ShowGameData();
+
+        player.gameObject.SetActive(false);
+        house.gameObject.SetActive(false);
+    }
+
+    public void ShowGameData()
+    {
+        DOTween.Sequence()
+            .Insert(0, UIManager.Instance.imgFade.DOFade(1, 1))
+            .Insert(1, UIManager.Instance.imgGameData.DOFade(1, 1))
+            .onComplete = () =>
+            {
+                UIManager.Instance.linkDataCards[0].Show("KillCount", $"{thisGameData.KillCount}");
+                UIManager.Instance.linkDataCards[1].Show("Round", $"{thisGameData.clearRound}");
+                UIManager.Instance.linkDataCards[2].Show("High Level", $"NONE");
+            };
+        DOTween.Sequence()
+            .Insert(2, UIManager.Instance.linkDataCards[0].GetComponent<RectTransform>().DOLocalMoveY(0, 1))
+            .Insert(2, UIManager.Instance.linkDataCards[1].GetComponent<RectTransform>().DOLocalMoveY(0, 1))
+            .Insert(2, UIManager.Instance.linkDataCards[2].GetComponent<RectTransform>().DOLocalMoveY(0, 1));
     }
 }

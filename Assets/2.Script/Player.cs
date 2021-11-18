@@ -7,7 +7,6 @@ using System.Linq;
 public class Player : BaseObject
 {
     public BaseSkill skill;
-    public List<BaseAbility> abilities;
 
     public float LastDir
     {
@@ -26,6 +25,7 @@ public class Player : BaseObject
     public override void Die()
     {
         base.Die();
+        GameManager.Instance.GameEnd();
         // TODO : 게임 종료
     }
 
@@ -34,11 +34,17 @@ public class Player : BaseObject
         base.Move();
         Dir = GetAxisRaw(KeyCode.LeftArrow, KeyCode.RightArrow);
         LastDir = Dir;
-        if (Dir != 0) sr.flipX = Dir == -1;
-        transform.Translate(Vector2.right * Dir * stat.MS * Time.deltaTime);
-        var hit = Physics2D.Raycast(transform.position, Vector2.down, 1, LayerMask.GetMask("Platform"));
+        sr.flipX = LastDir == -1;
+        animator.SetBool("isMove", Dir != 0);
+
+        if ((Dir > 0 && transform.position.x < 17) || (Dir < 0 && -17 < transform.position.x))
+            transform.Translate(Vector2.right * Dir * stat.MS * Time.deltaTime);
+
+        var hit = Physics2D.Raycast(transform.position, Vector2.down, stat.JP / 200, LayerMask.GetMask("Platform"));
+        animator.SetBool("isJump", !hit.transform);
         if (hit.transform && Input.GetKeyDown(KeyCode.UpArrow)) rb2d.AddForce(Vector2.up * stat.JP);
     }
+
 
     public override void Attack()
     {
@@ -46,15 +52,15 @@ public class Player : BaseObject
         float damage = stat.AD;
         if (UnityEngine.Random.Range(0, 101) < stat.CP)
         {
-            damage *= stat.CD;
+            damage += stat.CD;
         }
-        var hits = Physics2D.RaycastAll(transform.position, Vector2.right * LastDir, 5, LayerMask.GetMask("Enemy"));
-        hits.ToList().ForEach(hit => { if (hit.transform) hit.transform.GetComponent<BaseEnemy>().HP -= damage; });
+        var hits = Physics2D.RaycastAll(transform.position, Vector2.right * LastDir, 3, LayerMask.GetMask("Enemy"));
+        hits.ToList().ForEach(hit => { UIManager.Instance.AttackText(this, hit.transform.GetComponent<BaseObject>(), damage); if (hit.transform) hit.transform.GetComponent<BaseEnemy>().HP -= damage; });
     }
 
     public void CheckInputKey()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A) && !animator.GetBool("isAttack"))
         {
             Attack();
         }
@@ -78,7 +84,8 @@ public class Player : BaseObject
         if (Input.GetKeyDown(KeyCode.D))
         {
             print("dash");
-            transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * LastDir * 2, stat.MS);
+            if ((LastDir > 0 && transform.position.x < 15) || (LastDir < 0 && -15 < transform.position.x))
+                transform.position = Vector2.MoveTowards(transform.position, transform.position + Vector3.right * LastDir * 2, stat.MS);
         }
     }
 

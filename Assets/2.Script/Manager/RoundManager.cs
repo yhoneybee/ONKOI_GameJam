@@ -17,8 +17,24 @@ public class RoundManager : MonoBehaviour
             UIManager.Instance.ShowAbilityChoice(roundCount % 3 == 0);
         }
     }
+    public int EnemyCount
+    {
+        get { return enemyCount; }
+        set
+        {
+            enemyCount = value;
+            if (enemyCount <= 0)
+            {
+                CancelInvoke(nameof(Spawn));
+                RoundCount++;
+                enemyCount = 5 * RoundCount - (2 * (RoundCount - 1));
+                InvokeRepeating(nameof(Spawn), 3, 3);
+            }
+        }
+    }
 
     private int roundCount;
+    private int enemyCount;
 
     private void Awake()
     {
@@ -27,17 +43,16 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
-        RoundCount = 1;
+        EnemyCount = 0;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            RoundCount++;
     }
 
     public void Spawn()
     {
-
+        var enemy = UnitManager.Instance.GetRandomEnemy(spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position);
+        enemy.stat.HP = enemy.stat.HP = 40 + (RoundCount * 10);
     }
 }

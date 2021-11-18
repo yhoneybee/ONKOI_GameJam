@@ -59,7 +59,12 @@ public class BaseEnemy : BaseObject
     public override void Move()
     {
         base.Move();
-        if (Target && !isAttack) transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, stat.MS * Time.deltaTime);
+        if (Target && !isAttack)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, Target.transform.position, stat.MS * Time.deltaTime);
+            animator.SetBool("isMove", true);
+        }
+        sr.flipX = transform.position.x - Target.transform.position.x < 0;
     }
 
     protected override void Start()
@@ -86,17 +91,27 @@ public class BaseEnemy : BaseObject
     public override void Die()
     {
         base.Die();
-        GameManager.Instance.thisGameData.killCount++;
+        GameManager.Instance.thisGameData.KillCount++;
         GameManager.Instance.Gold += gold;
-        UIManager.Instance.GoldDrop(this);
-        UnitManager.Instance.ReturnObject(this);
+        RoundManager.Instance.EnemyCount--;
+        //UIManager.Instance.GoldDrop(this);
     }
+
+    public void ReturnObj() => UnitManager.Instance.ReturnObject(this);
 
     public override void Attack()
     {
         base.Attack();
-        isAttack = false;
+        isAttack = true;
+        UIManager.Instance.AttackText(this, Target, stat.AD);
+        Invoke(nameof(ResetAttack), stat.AS);
         Target.HP -= stat.AD;
+    }
+
+    void ResetAttack()
+    {
+        isAttack = false;
+        FSM = eFSM.TrackingTarget;
     }
 
     void AggroClear()
@@ -125,10 +140,11 @@ public class BaseEnemy : BaseObject
 
                 break;
             case eFSM.TargetOnAttackRange:
-
-                isAttack = true;
-                Invoke(nameof(Attack), 1 / stat.AS);
-                FSM = eFSM.TrackingTarget;
+                if (!isAttack)
+                {
+                    CancelInvoke(nameof(ResetAttack));
+                    Attack();
+                }
 
                 break;
         }
@@ -157,7 +173,6 @@ public class BaseEnemy : BaseObject
 
                         if (hits.Length <= 0) // 감지 되지 않음
                         {
-                            CancelInvoke(nameof(Attack));
                             isAttack = false;
                             FSM = eFSM.ChangeNearTarget;
                         }
@@ -174,6 +189,8 @@ public class BaseEnemy : BaseObject
             case eFSM.ChangeNearTarget:
                 break;
             case eFSM.TargetOnAttackRange:
+
+
                 break;
         }
     }

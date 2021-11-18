@@ -7,9 +7,10 @@ using System.Linq;
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager Instance { get; private set; }
+
     public List<BaseEnemy> originList;
     public Dictionary<string, List<BaseEnemy>> dicEnemy;
-    public RectTransform rtrnEnemyParent;
+    public Transform trnEnemyParent;
 
     private void Awake()
     {
@@ -20,6 +21,10 @@ public class UnitManager : MonoBehaviour
     {
         dicEnemy = new Dictionary<string, List<BaseEnemy>>();
     }
+
+    string GetRandomEnemyName() => originList[UnityEngine.Random.Range(0, originList.Count)].Name;
+
+    public BaseEnemy GetRandomEnemy(Vector2 pos) => GetObject(GetRandomEnemyName(), pos);
 
     public BaseEnemy GetObject(string name, Vector2 pos)
     {
@@ -41,7 +46,7 @@ public class UnitManager : MonoBehaviour
             }
             else
             {
-                obj = Instantiate(originList.Where(o => o.name == name).FirstOrDefault());
+                obj = Instantiate(originList.Where(o => o.Name == name).FirstOrDefault());
             }
         }
 
@@ -53,9 +58,9 @@ public class UnitManager : MonoBehaviour
 
     public void ReturnObject(BaseEnemy be)
     {
-        if (!dicEnemy.ContainsKey(be.name)) dicEnemy.Add(be.name, new List<BaseEnemy>());
+        if (!dicEnemy.ContainsKey(be.Name)) dicEnemy.Add(be.Name, new List<BaseEnemy>());
 
-        dicEnemy[be.name].Add(be);
+        dicEnemy[be.Name].Add(be);
         be.gameObject.SetActive(false);
         be.transform.position = Vector3.zero;
     }
