@@ -38,10 +38,7 @@ public class AbilityChoiceLinker : MonoBehaviour
     private void OnClick()
     {
         ability.Equipped();
-        if (RoundManager.Instance.RoundCount % 3 == 0)
-        {
-
-        }
         UIManager.Instance.ActiveAbilityChoice(false);
+        GameManager.Instance.player.HP = int.MaxValue;
     }
 }

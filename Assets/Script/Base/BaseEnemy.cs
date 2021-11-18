@@ -86,6 +86,7 @@ public class BaseEnemy : BaseObject
     public override void Die()
     {
         base.Die();
+        GameManager.Instance.thisGameData.killCount++;
         GameManager.Instance.Gold += gold;
         UIManager.Instance.GoldDrop(this);
         UnitManager.Instance.ReturnObject(this);
@@ -93,9 +94,9 @@ public class BaseEnemy : BaseObject
 
     public override void Attack()
     {
-        // TODO : 
         base.Attack();
         isAttack = false;
+        Target.HP -= stat.AD;
     }
 
     void AggroClear()

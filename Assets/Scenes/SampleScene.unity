@@ -518,8 +518,6 @@ MonoBehaviour:
   - {fileID: 1428305976}
   - {fileID: 210935924}
   txtChoice: {fileID: 149295861}
-  imgFade: {fileID: 0}
-  rtrnHouse: {fileID: 0}
 --- !u!1 &679503192
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,8 +1230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stat:
-    HP: 0
-    maxHP: 0
+    HP: 1
+    maxHP: 20
     AD: 0
     AS: 0
     CP: 0

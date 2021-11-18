@@ -36,10 +36,8 @@ public class GameManager : MonoBehaviour
 
     private void LoadAndSaveLogData()
     {
-        SaveManager.Load(ref gameLogData, "GameLogDatas");
         if (gameLogData.Count > 10)
             gameLogData.RemoveRange(10, gameLogData.Count - 10);
-        SaveManager.Save(gameLogData, "GameLogDatas");
     }
 
     private void Update()
@@ -49,11 +47,21 @@ public class GameManager : MonoBehaviour
     public void GameStart()
     {
         thisGameData = new SaveData();
+        print($"MaxStage : {PlayerPrefs.GetInt("maxStage")}");
         LoadAndSaveLogData();
     }
 
     public void GameEnd()
     {
+        thisGameData.clearRound = RoundManager.Instance.RoundCount;
+
+        int maxStage = PlayerPrefs.GetInt("maxStage", 0);
+
+        if (maxStage < thisGameData.clearRound)
+            PlayerPrefs.SetInt("maxStage", thisGameData.clearRound);
+
+        print($"MaxStage : {PlayerPrefs.GetInt("maxStage")}");
+
         gameLogData.Add(thisGameData);
         LoadAndSaveLogData();
     }

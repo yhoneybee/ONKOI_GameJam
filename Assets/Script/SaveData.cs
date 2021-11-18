@@ -14,7 +14,7 @@ public class SaveData
 
     public void AddAbility(BaseAbility ability)
     {
-        if (Abilities.Contains(ability)) ability.level++;
+        if (Abilities.Contains(ability)) ability.LevelUp();
         else Abilities.Add(ability);
 
         Abilities = Abilities.OrderByDescending(x => x.level).Select(x => x).ToList();

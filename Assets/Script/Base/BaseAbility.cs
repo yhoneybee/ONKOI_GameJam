@@ -10,6 +10,7 @@ public struct AbilityOperate
     public eOperate operateType;
     public eStat statType;
     public float value;
+    public float levelUpAddtionValue;
 
     public override string ToString()
     {
@@ -39,6 +40,7 @@ public struct AbilityOperate
 public class BaseAbility : ScriptableObject
 {
     public List<AbilityOperate> operateList;
+    public string Name;
     public int level;
     public Stat stat;
     public bool epicRank;
@@ -87,7 +89,6 @@ public class BaseAbility : ScriptableObject
 
     public void Equipped()
     {
-        GameManager.Instance.thisGameData.RemoveAbility(this);
         GameManager.Instance.thisGameData.AddAbility(this);
         stat = new Stat();
         var player = GameManager.Instance.player;
@@ -96,25 +97,25 @@ public class BaseAbility : ScriptableObject
             switch (ol.statType)
             {
                 case eStat.HP:
-                    stat.HP += Operate(ol.operateType, ref player.stat.HP, ol.value);
+                    stat.HP += Operate(ol.operateType, ref player.stat.HP, ol.value + level * ol.levelUpAddtionValue);
                     break;
                 case eStat.AD:
-                    stat.AD += Operate(ol.operateType, ref player.stat.AD, ol.value);
+                    stat.AD += Operate(ol.operateType, ref player.stat.AD, ol.value + level * ol.levelUpAddtionValue);
                     break;
                 case eStat.AS:
-                    stat.AS += Operate(ol.operateType, ref player.stat.AS, ol.value);
+                    stat.AS += Operate(ol.operateType, ref player.stat.AS, ol.value + level * ol.levelUpAddtionValue);
                     break;
                 case eStat.CP:
-                    stat.CP += Operate(ol.operateType, ref player.stat.CP, ol.value);
+                    stat.CP += Operate(ol.operateType, ref player.stat.CP, ol.value + level * ol.levelUpAddtionValue);
                     break;
                 case eStat.CD:
-                    stat.CD += Operate(ol.operateType, ref player.stat.CD, ol.value);
+                    stat.CD += Operate(ol.operateType, ref player.stat.CD, ol.value + level * ol.levelUpAddtionValue);
                     break;
                 case eStat.MS:
-                    stat.MS += Operate(ol.operateType, ref player.stat.MS, ol.value);
+                    stat.MS += Operate(ol.operateType, ref player.stat.MS, ol.value + level * ol.levelUpAddtionValue);
                     break;
                 case eStat.JP:
-                    stat.JP += Operate(ol.operateType, ref player.stat.JP, ol.value);
+                    stat.JP += Operate(ol.operateType, ref player.stat.JP, ol.value + level * ol.levelUpAddtionValue);
                     break;
             }
         }
@@ -122,6 +123,14 @@ public class BaseAbility : ScriptableObject
 
     public void Unequipped()
     {
+        GameManager.Instance.thisGameData.RemoveAbility(this);
         GameManager.Instance.player.stat -= stat;
+    }
+
+    public void LevelUp()
+    {
+        Unequipped();
+        level++;
+        Equipped();
     }
 }
