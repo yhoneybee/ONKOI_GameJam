@@ -25,33 +25,36 @@ public class TitleLinker : MonoBehaviour
     {
         count = 3;
 
-        txtHighStage.text = $"High Stage : {PlayerPrefs.GetInt("maxStage")}";
+        if (txtHighStage)
+            txtHighStage.text = $"High Stage : {PlayerPrefs.GetInt("maxStage")}";
 
-        btnStart.onClick.AddListener(() =>
-        {
-            AudioManager.Instance.Play(eMUSIC.Button);
-            SceneChange("Ingame");
-        });
-
-        btnQuit.onClick.AddListener(() =>
-        {
-            AudioManager.Instance.Play(eMUSIC.Button);
-            switch (count)
+        if (btnStart)
+            btnStart.onClick.AddListener(() =>
             {
-                case 3:
-                    txtQuit.DOText("ㄹㅇ 왜 킴?", 1);
-                    break;
-                case 2:
-                    txtQuit.DOText("아니 ㄹㅇ 왜 킴..?", 1);
-                    break;
-                case 1:
-                    txtQuit.DOText("응애..?", 1);
-                    break;
-                case 0:
-                    Application.Quit();
-                    break;
-            }
-            count--;
-        });
+                AudioManager.Instance.Play(eMUSIC.Button);
+                SceneChange("Ingame");
+            });
+
+        if (btnQuit)
+            btnQuit.onClick.AddListener(() =>
+            {
+                AudioManager.Instance.Play(eMUSIC.Button);
+                switch (count)
+                {
+                    case 3:
+                        txtQuit.DOText("ㄹㅇ 왜 킴?", 1);
+                        break;
+                    case 2:
+                        txtQuit.DOText("아니 ㄹㅇ 왜 킴..?", 1);
+                        break;
+                    case 1:
+                        txtQuit.DOText("응애..?", 1);
+                        break;
+                    case 0:
+                        Application.Quit();
+                        break;
+                }
+                count--;
+            });
     }
 }

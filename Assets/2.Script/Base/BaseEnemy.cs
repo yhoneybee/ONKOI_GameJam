@@ -93,7 +93,7 @@ public class BaseEnemy : BaseObject
         base.Die();
         GameManager.Instance.thisGameData.KillCount++;
         GameManager.Instance.Gold += gold;
-        RoundManager.Instance.EnemyCount--;
+        RoundManager.Instance.LeftEnemyCount--;
         //UIManager.Instance.GoldDrop(this);
     }
 

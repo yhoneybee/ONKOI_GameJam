@@ -20,21 +20,31 @@ public class RoundManager : MonoBehaviour
     public int EnemyCount
     {
         get { return enemyCount; }
-        set
+        set 
         {
             enemyCount = value;
-            if (enemyCount <= 0)
+            if (enemyCount == 5 * RoundCount - (2 * (RoundCount - 1)) && leftEnemyCount == 0)
             {
                 CancelInvoke(nameof(Spawn));
                 RoundCount++;
-                enemyCount = 5 * RoundCount - (2 * (RoundCount - 1));
-                InvokeRepeating(nameof(Spawn), 3, 3);
+                enemyCount = 0;
+                leftEnemyCount = 5 * RoundCount - (2 * (RoundCount - 1));
+                InvokeRepeating(nameof(Spawn), 3, 0.5f);
             }
         }
     }
+    public int LeftEnemyCount
+    {
+        get { return leftEnemyCount; }
+        set
+        {
+            leftEnemyCount = value;
+        }
+    }
 
-    private int roundCount;
     private int enemyCount;
+    private int leftEnemyCount;
+    private int roundCount;
 
     private void Awake()
     {
@@ -43,7 +53,9 @@ public class RoundManager : MonoBehaviour
 
     private void Start()
     {
-        EnemyCount = 0;
+        RoundCount = 1;
+        LeftEnemyCount = 0;
+        EnemyCount = 5 * RoundCount - (2 * (RoundCount - 1));
     }
 
     private void Update()
@@ -54,5 +66,6 @@ public class RoundManager : MonoBehaviour
     {
         var enemy = UnitManager.Instance.GetRandomEnemy(spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position);
         enemy.stat.HP = enemy.stat.HP = 40 + (RoundCount * 10);
+        enemyCount++;
     }
 }
