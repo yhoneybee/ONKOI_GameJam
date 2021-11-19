@@ -19,25 +19,31 @@ public struct Stat
 
     public static Stat operator +(Stat stat1, Stat stat2)
     {
-        return new Stat { HP = CheckZero(stat1.HP + stat2.HP),
+        return new Stat
+        {
+            HP = CheckZero(stat1.HP + stat2.HP),
             AD = CheckZero(stat1.AD + stat2.AD),
             AS = CheckZero(stat1.AS + stat2.AS),
             CP = CheckZero(stat1.CP + stat2.CP),
             CD = CheckZero(stat1.CD + stat2.CD),
             maxHP = CheckZero(stat1.maxHP + stat2.maxHP),
             MS = CheckZero(stat1.MS + stat2.MS),
-            JP = CheckZero(stat1.JP + stat2.JP) };
+            JP = CheckZero(stat1.JP + stat2.JP)
+        };
     }
     public static Stat operator -(Stat stat1, Stat stat2)
     {
-        return new Stat { HP = CheckZero(stat1.HP - stat2.HP),
+        return new Stat
+        {
+            HP = CheckZero(stat1.HP - stat2.HP),
             AD = CheckZero(stat1.AD - stat2.AD),
             AS = CheckZero(stat1.AS - stat2.AS),
             CP = CheckZero(stat1.CP - stat2.CP),
             CD = CheckZero(stat1.CD - stat2.CD),
             maxHP = CheckZero(stat1.maxHP - stat2.maxHP),
             MS = CheckZero(stat1.MS - stat2.MS),
-            JP = CheckZero(stat1.JP - stat2.JP) };
+            JP = CheckZero(stat1.JP - stat2.JP)
+        };
     }
 }
 
@@ -115,11 +121,16 @@ public abstract class BaseObject : MonoBehaviour
 
     public virtual void Attack()
     {
-        animator.SetBool("isAttack", true);
+        if (!animator.GetBool("isAttack") && !animator.GetBool("isJump"))
+        {
+            animator.SetBool("isAttack", true);
+            AudioManager.Instance.Play(eMUSIC.Attack);
+        }
     }
 
     public virtual void AttackEnd()
     {
-        animator.SetBool("isAttack", false);
+        if (animator.GetBool("isAttack"))
+            animator.SetBool("isAttack", false);
     }
 }

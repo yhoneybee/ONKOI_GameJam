@@ -37,6 +37,7 @@ public class AbilityChoiceLinker : MonoBehaviour
 
     private void OnClick()
     {
+        AudioManager.Instance.Play(eMUSIC.Button);
         ability.Equipped();
         UIManager.Instance.ActiveAbilityChoice(false);
         GameManager.Instance.player.HP = int.MaxValue;

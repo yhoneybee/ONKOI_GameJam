@@ -16,10 +16,10 @@ public class Player : BaseObject
             if (value != 0) lostDir = value;
         }
     }
+    public int multiKey = 0;
 
-    private int MultiKey = 0;
-    private float FirstDir = 0;
-    private float Dir;
+    private float firstDir = 0;
+    private float dir;
     private float lostDir;
 
     public override void Die()
@@ -32,13 +32,13 @@ public class Player : BaseObject
     public override void Move()
     {
         base.Move();
-        Dir = GetAxisRaw(KeyCode.LeftArrow, KeyCode.RightArrow);
-        LastDir = Dir;
+        dir = GetAxisRaw(KeyCode.LeftArrow, KeyCode.RightArrow);
+        LastDir = dir;
         sr.flipX = LastDir == -1;
-        animator.SetBool("isMove", Dir != 0);
+        animator.SetBool("isMove", dir != 0);
 
-        if ((Dir > 0 && transform.position.x < 17) || (Dir < 0 && -17 < transform.position.x))
-            transform.Translate(Vector2.right * Dir * stat.MS * Time.deltaTime);
+        if ((dir > 0 && transform.position.x < 17) || (dir < 0 && -17 < transform.position.x))
+            transform.Translate(Vector2.right * dir * stat.MS * Time.deltaTime);
 
         var hit = Physics2D.Raycast(transform.position, Vector2.down, stat.JP / 200, LayerMask.GetMask("Platform"));
         animator.SetBool("isJump", !hit.transform);
@@ -49,6 +49,7 @@ public class Player : BaseObject
     public override void Attack()
     {
         base.Attack();
+        print("ATTACK");
         float damage = stat.AD;
         if (UnityEngine.Random.Range(0, 101) < stat.CP)
         {
@@ -56,6 +57,12 @@ public class Player : BaseObject
         }
         var hits = Physics2D.RaycastAll(transform.position, Vector2.right * LastDir, 3, LayerMask.GetMask("Enemy"));
         hits.ToList().ForEach(hit => { UIManager.Instance.AttackText(this, hit.transform.GetComponent<BaseObject>(), damage); if (hit.transform) hit.transform.GetComponent<BaseEnemy>().HP -= damage; });
+    }
+
+    public override void AttackEnd()
+    {
+        base.AttackEnd();
+        print("ATTACK END");
     }
 
     public void CheckInputKey()
@@ -113,10 +120,10 @@ public class Player : BaseObject
             ReturnDir = -1;
 
             if (Input.GetKeyDown(left))
-                ++MultiKey;
+                ++multiKey;
 
-            if (MultiKey == 1)
-                FirstDir = ReturnDir;
+            if (multiKey == 1)
+                firstDir = ReturnDir;
         }
 
         if (Input.GetKey(right))
@@ -124,20 +131,20 @@ public class Player : BaseObject
             ReturnDir = 1;
 
             if (Input.GetKeyDown(right))
-                ++MultiKey;
+                ++multiKey;
 
-            if (MultiKey == 1)
-                FirstDir = ReturnDir;
+            if (multiKey == 1)
+                firstDir = ReturnDir;
         }
 
-        if (MultiKey == 2)
-            ReturnDir = -FirstDir;
+        if (multiKey == 2)
+            ReturnDir = -firstDir;
 
         if (Input.GetKeyUp(left) || Input.GetKeyUp(right))
-            --MultiKey;
+            --multiKey;
 
-        if (MultiKey == 0)
-            FirstDir = 0;
+        if (multiKey == 0)
+            firstDir = 0;
 
         return ReturnDir;
     }

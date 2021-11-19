@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI txtChoice;
     public Image imgFade;
     public Image imgGameData;
+    public Button btnConfirm;
 
     private void Awake()
     {
@@ -30,6 +31,7 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         txtGold.text = "";
+        btnConfirm.targetGraphic.raycastTarget = btnConfirm.enabled = false;
     }
 
     public void GoldDrop(BaseEnemy be)
@@ -79,6 +81,7 @@ public class UIManager : MonoBehaviour
             .onComplete = () =>
              {
                  Time.timeScale = 0;
+                 (GameManager.Instance.player as Player).multiKey = 0;
                  foreach (var linker in linkAbilityChoices)
                      linker.choice.enabled = true;
              };

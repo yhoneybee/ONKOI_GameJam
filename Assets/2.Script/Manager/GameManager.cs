@@ -67,6 +67,8 @@ public class GameManager : MonoBehaviour
 
     public void GameEnd()
     {
+        AudioManager.Instance.Play(eMUSIC.GameOver);
+
         thisGameData.clearRound = RoundManager.Instance.RoundCount;
 
         int maxStage = PlayerPrefs.GetInt("maxStage", 0);
@@ -98,6 +100,10 @@ public class GameManager : MonoBehaviour
         DOTween.Sequence()
             .Insert(2, UIManager.Instance.linkDataCards[0].GetComponent<RectTransform>().DOLocalMoveY(0, 1))
             .Insert(2, UIManager.Instance.linkDataCards[1].GetComponent<RectTransform>().DOLocalMoveY(0, 1))
-            .Insert(2, UIManager.Instance.linkDataCards[2].GetComponent<RectTransform>().DOLocalMoveY(0, 1));
+            .Insert(2, UIManager.Instance.linkDataCards[2].GetComponent<RectTransform>().DOLocalMoveY(0, 1))
+            .onComplete = () =>
+            {
+                UIManager.Instance.btnConfirm.targetGraphic.raycastTarget = UIManager.Instance.btnConfirm.enabled = true;
+            };
     }
 }
