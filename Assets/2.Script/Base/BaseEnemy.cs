@@ -104,7 +104,7 @@ public class BaseEnemy : BaseObject
         base.Attack();
         isAttack = true;
         UIManager.Instance.AttackText(this, Target, stat.AD);
-        Invoke(nameof(ResetAttack), stat.AS);
+        Invoke(nameof(ResetAttack), 1 / stat.AS);
         Target.HP -= stat.AD;
     }
 

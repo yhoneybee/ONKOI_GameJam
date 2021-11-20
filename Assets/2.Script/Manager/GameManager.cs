@@ -73,7 +73,12 @@ public class GameManager : MonoBehaviour
             {
                 UIManager.Instance.linkDataCards[0].Show("KillCount", $"{RoundManager.Instance.KillCount}");
                 UIManager.Instance.linkDataCards[1].Show("Round", $"{RoundManager.Instance.RoundCount}");
-                UIManager.Instance.linkDataCards[2].Show("High Level", $"{AbilityManager.Instance.GetHighLevel().Name}\n(lv.{AbilityManager.Instance.GetHighLevel().level})");
+                UIManager.Instance.linkDataCards[2].Show("High Level", $"{AbilityManager.Instance.GetHighLevel().Name}\n(lv.{AbilityManager.Instance.GetHighLevel().level})", 60);
+
+                foreach (var ability in AbilityManager.Instance.Abilities)
+                {
+                    ability.level = 0;
+                }
             };
         DOTween.Sequence()
             .Insert(2, UIManager.Instance.linkDataCards[0].GetComponent<RectTransform>().DOLocalMoveY(0, 1))

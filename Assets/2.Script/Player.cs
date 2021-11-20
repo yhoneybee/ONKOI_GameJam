@@ -55,6 +55,10 @@ public class Player : BaseObject
         {
             damage += stat.CD;
         }
+        if (stat.CP > 100)
+        {
+            damage *= stat.CP - 99;
+        }
         var hits = Physics2D.RaycastAll(transform.position, Vector2.right * LastDir, 3, LayerMask.GetMask("Enemy"));
         hits.ToList().ForEach(hit => { UIManager.Instance.AttackText(this, hit.transform.GetComponent<BaseObject>(), damage); if (hit.transform) hit.transform.GetComponent<BaseEnemy>().HP -= damage; });
     }

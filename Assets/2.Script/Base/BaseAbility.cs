@@ -45,11 +45,16 @@ public class BaseAbility : ScriptableObject
 
     public override string ToString()
     {
-        string result = $"[ {Name}(lv.{level}) ]\n";
+        string result = $"[ {Name}";
+        if (level < 4)
+            result += $"(lv.{level}) ]\n";
+        else
+            result += $"(MAX) ]\n";
         foreach (var operate in operateList)
         {
             var statAndOperate = operate.ToString().Split(',');
-            result += $"{statAndOperate[0]} {operate.levelUpAddtionValues[level]}{statAndOperate[1]}\n";
+            if (level < 4)
+                result += $"{statAndOperate[0]} {operate.levelUpAddtionValues[level]}{statAndOperate[1]}\n";
         }
         return result;
     }

@@ -20,7 +20,7 @@ public class RoundManager : MonoBehaviour
     public int EnemyCount
     {
         get { return enemyCount; }
-        set 
+        set
         {
             enemyCount = value;
             if (enemyCount == 5 * RoundCount - (2 * (RoundCount - 1)) && leftEnemyCount == 0)
@@ -52,9 +52,9 @@ public class RoundManager : MonoBehaviour
     public int KillCount
     {
         get { return killCount; }
-        set 
-        { 
-            killCount = value; 
+        set
+        {
+            killCount = value;
             UIManager.Instance.txtKillCount.text = $"{killCount} Kills";
         }
     }
@@ -85,6 +85,14 @@ public class RoundManager : MonoBehaviour
         {
             var enemy = UnitManager.Instance.GetRandomEnemy(spawnPoints[Random.Range(0, spawnPoints.Count)].transform.position);
             enemy.stat.HP = enemy.stat.maxHP = 40 + (RoundCount * 10);
+            if (RoundCount > 10)
+            {
+                enemy.stat.MS = 3 + 0.2f * (RoundCount - 10);
+            }
+            if (RoundCount > 15)
+            {
+                enemy.stat.AS = 1 + 0.2f * (RoundCount - 15);
+            }
             enemyCount++;
         }
     }

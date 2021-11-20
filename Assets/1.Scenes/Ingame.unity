@@ -552,6 +552,14 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747122, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747122, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -60
+      objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_isRichText
       value: 1
@@ -2413,9 +2421,17 @@ PrefabInstance:
       propertyPath: m_fontColor32.rgba
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747122, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747122, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -60
+      objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_fontSize
-      value: 18
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_isRichText
@@ -2435,7 +2451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_enableAutoSizing
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -2528,6 +2544,10 @@ PrefabInstance:
     - target: {fileID: 2513411208464973613, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_Name
       value: DataCard right
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513411208464973613, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2513411208464973615, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_Color.a
@@ -2649,10 +2669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 107ca3b722bc14341a2040b2f829a80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thisGameData:
-    clearRound: 0
-    Abilities: []
-  gameLogData: []
   player: {fileID: 701207626}
   house: {fileID: 1131112641}
 --- !u!1001 &2513411208510781925
@@ -2685,6 +2701,14 @@ PrefabInstance:
     - target: {fileID: 2513411206774802598, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_fontColor32.rgba
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747122, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -120
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747122, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -60
       objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_isRichText
