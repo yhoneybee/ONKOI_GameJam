@@ -9,9 +9,7 @@ using DG.Tweening;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public SaveData thisGameData;
 
-    public List<SaveData> gameLogData = new List<SaveData>();
     public BaseObject player;
     public House house;
     public int Gold
@@ -40,46 +38,26 @@ public class GameManager : MonoBehaviour
         GameStart();
     }
 
-    private void LoadAndSaveLogData()
-    {
-        var loads = SaveManager.Load<(int, int)>("GameLogData");
-        if (loads != null)
-        {
-            foreach (var load in loads)
-                gameLogData.Add(new SaveData { clearRound = load.Item1, KillCount = load.Item2 });
-        }
-
-        if (gameLogData.Count > 10)
-            gameLogData.RemoveRange(10, gameLogData.Count - 10);
-        SaveManager.Save(gameLogData.Select(x => (x.clearRound, x.KillCount)), "GameLogData");
-    }
-
     private void Update()
     {
     }
 
     public void GameStart()
     {
-        thisGameData = new SaveData();
         print($"MaxStage : {PlayerPrefs.GetInt("maxStage")}");
-        LoadAndSaveLogData();
     }
 
     public void GameEnd()
     {
         AudioManager.Instance.Play(eMUSIC.GameOver);
 
-        thisGameData.clearRound = RoundManager.Instance.RoundCount;
-
         int maxStage = PlayerPrefs.GetInt("maxStage", 0);
 
-        if (maxStage < thisGameData.clearRound)
-            PlayerPrefs.SetInt("maxStage", thisGameData.clearRound);
+        if (maxStage < RoundManager.Instance.RoundCount)
+            PlayerPrefs.SetInt("maxStage", RoundManager.Instance.RoundCount);
 
         print($"MaxStage : {PlayerPrefs.GetInt("maxStage")}");
 
-        gameLogData.Add(thisGameData);
-        LoadAndSaveLogData();
         ShowGameData();
 
         player.gameObject.SetActive(false);
@@ -93,9 +71,9 @@ public class GameManager : MonoBehaviour
             .Insert(1, UIManager.Instance.imgGameData.DOFade(1, 1))
             .onComplete = () =>
             {
-                UIManager.Instance.linkDataCards[0].Show("KillCount", $"{thisGameData.KillCount}");
-                UIManager.Instance.linkDataCards[1].Show("Round", $"{thisGameData.clearRound}");
-                UIManager.Instance.linkDataCards[2].Show("High Level", $"NONE");
+                UIManager.Instance.linkDataCards[0].Show("KillCount", $"{RoundManager.Instance.KillCount}");
+                UIManager.Instance.linkDataCards[1].Show("Round", $"{RoundManager.Instance.RoundCount}");
+                UIManager.Instance.linkDataCards[2].Show("High Level", $"{AbilityManager.Instance.GetHighLevel().Name}\n(lv.{AbilityManager.Instance.GetHighLevel().level})");
             };
         DOTween.Sequence()
             .Insert(2, UIManager.Instance.linkDataCards[0].GetComponent<RectTransform>().DOLocalMoveY(0, 1))

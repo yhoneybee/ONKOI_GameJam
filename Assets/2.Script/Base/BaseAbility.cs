@@ -71,7 +71,7 @@ public class BaseAbility : ScriptableObject
 
     public void Equipped()
     {
-        GameManager.Instance.thisGameData.AddAbility(this);
+        //GameManager.Instance.thisGameData.AddAbility(this);
         var player = GameManager.Instance.player;
         foreach (var ol in operateList)
         {
@@ -103,17 +103,11 @@ public class BaseAbility : ScriptableObject
                     break;
             }
         }
-    }
-
-    public void Unequipped()
-    {
-        GameManager.Instance.thisGameData.RemoveAbility(this);
+        level++;
     }
 
     public void LevelUp()
     {
-        Unequipped();
         level++;
-        Equipped();
     }
 }

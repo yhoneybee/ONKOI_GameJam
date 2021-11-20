@@ -29,14 +29,4 @@ MonoBehaviour:
     - 5
   Name: "\uC2E0\uC911\uD568"
   level: 0
-  stat:
-    HP: 0
-    maxHP: 0
-    AD: 0
-    AS: 0
-    CP: 0
-    CD: 0
-    MS: 0
-    JP: 0
-    lv: 0
   epicRank: 0

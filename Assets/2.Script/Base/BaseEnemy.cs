@@ -91,7 +91,7 @@ public class BaseEnemy : BaseObject
     public override void Die()
     {
         base.Die();
-        GameManager.Instance.thisGameData.KillCount++;
+        RoundManager.Instance.KillCount++;
         GameManager.Instance.Gold += gold;
         RoundManager.Instance.LeftEnemyCount--;
         //UIManager.Instance.GoldDrop(this);

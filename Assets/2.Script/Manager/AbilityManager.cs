@@ -23,6 +23,8 @@ public class AbilityManager : MonoBehaviour
         }
     }
 
+    public BaseAbility GetHighLevel() => Abilities.OrderByDescending(x => x.epicRank).OrderByDescending(x => x.level).FirstOrDefault();
+
     public List<BaseAbility> ChoiceAbility(bool epic)
     {
         List<BaseAbility> list = new List<BaseAbility>

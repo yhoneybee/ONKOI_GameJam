@@ -802,6 +802,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   followObject: {fileID: 396387703}
+  followSpeed: 3
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -2413,6 +2414,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_isRichText
       value: 1
       objectReference: {fileID: 0}
@@ -2421,8 +2426,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2513411207445747133, guid: 570895f2998543a4eb8520387b1fba66, type: 3}
       propertyPath: m_fontColor32.rgba
@@ -2914,6 +2927,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1767504528081473167, guid: fce347619ecd6c349a73468d91a9f0f3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1767504528081473167, guid: fce347619ecd6c349a73468d91a9f0f3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3817536266484841501, guid: fce347619ecd6c349a73468d91a9f0f3, type: 3}
       propertyPath: m_Name
       value: House
@@ -2979,6 +3000,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4462504040059120105, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4462504040059120105, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4530482057016827541, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
       propertyPath: m_Name
       value: Player
@@ -3001,7 +3030,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4530482057016827544, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
       propertyPath: stat.HP
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4530482057016827544, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
       propertyPath: stat.MS
@@ -3009,7 +3038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4530482057016827544, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
       propertyPath: stat.maxHP
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4530482057016827546, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
       propertyPath: m_SortingOrder
@@ -3057,6 +3086,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4530482057016827547, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8295984745169829749, guid: f80ea46e36f07ee4dae2156c2f2bb496, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
