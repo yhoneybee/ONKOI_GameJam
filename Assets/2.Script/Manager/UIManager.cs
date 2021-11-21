@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
     public RectTransform rtrnCanvas;
     public GoldDropLinker goldDropPrefab;
     public List<AbilityChoiceLinker> linkAbilityChoices;
+    public Button btnReroll;
     public List<DataCardLinker> linkDataCards;
     public TextMeshProUGUI txtChoice;
     public Image imgFade;
@@ -62,6 +63,13 @@ public class UIManager : MonoBehaviour
         }
         txtChoice.gameObject.SetActive(active);
         txtChoice.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -540);
+        //btnReroll.gameObject.SetActive(active);
+        btnReroll.onClick.RemoveAllListeners();
+        btnReroll.onClick.AddListener(() => 
+        {
+            var abilities = AbilityManager.Instance.ChoiceAbility(RoundManager.Instance.RoundCount % 3 == 0);
+            for (int i = 0; i < 3; i++) linkAbilityChoices[i].Ability = abilities[i];
+        });
 
         Time.timeScale = 1;
     }

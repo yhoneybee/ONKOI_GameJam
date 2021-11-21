@@ -13,6 +13,7 @@ public class TitleLinker : MonoBehaviour
     public Button btnQuit;
     public TextMeshProUGUI txtQuit;
     public TextMeshProUGUI txtHighStage;
+    public Image imgFade;
 
     private int count = 3;
 

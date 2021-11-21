@@ -105,6 +105,7 @@ public abstract class BaseObject : MonoBehaviour
     protected virtual void Update()
     {
         Move();
+        if (stat.AD < 0) stat.AD = 0;
     }
 
     public virtual void Move()
